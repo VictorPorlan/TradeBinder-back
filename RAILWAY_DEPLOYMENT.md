@@ -163,6 +163,16 @@ You can add a custom domain:
 
 ## Troubleshooting
 
+### Error: Cannot find module '/app/dist/main'
+**Cause:** The build step is not running or the `dist` folder is not being created.
+
+**Solution:**
+1. The project now uses a `Dockerfile` which ensures the build runs properly
+2. If you still see this error, ensure:
+   - The `Dockerfile` is in the root directory
+   - The `build` script in `package.json` is correct (`nest build`)
+   - Railway is using the Docker build (check Railway settings → Build)
+
 ### Build fails
 - Check Railway logs for errors
 - Ensure `package.json` has the correct build script
