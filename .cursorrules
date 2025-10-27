@@ -1,0 +1,194 @@
+# TradeBinder Backend - Cursor Rules
+
+## Contexto del Proyecto
+Este es el backend de TradeBinder, una plataforma web para compra/venta de cartas de Magic: The Gathering. 
+Tecnologías: NestJS, PostgreSQL, TypeORM/Prisma, JWT, Docker.
+
+## Arquitectura y Patrones
+- **Arquitectura**: Modular con NestJS (módulos, controladores, servicios, entidades)
+- **Patrón**: Repository/Service pattern con inyección de dependencias
+- **ORM**: TypeORM o Prisma para PostgreSQL
+- **Autenticación**: JWT con guards y middleware de seguridad
+- **Validación**: DTOs con class-validator y class-transformer
+
+## Estructura de Archivos
+```
+/backend
+├── /src
+│   ├── /modules          # Módulos de funcionalidad (auth, announcements, messages)
+│   ├── /controllers      # Controladores REST
+│   ├── /services         # Lógica de negocio
+│   ├── /entities         # Entidades de base de datos
+│   ├── /dto              # Data Transfer Objects
+│   ├── /guards           # Guards de autenticación/autorización
+│   ├── /middlewares      # Middlewares personalizados
+│   ├── /interceptors     # Interceptors para transformación
+│   ├── /pipes            # Pipes de validación
+│   └── main.ts
+├── /db
+│   ├── /migrations
+│   └── /seeds
+└── docker-compose.yml
+```
+
+## Buenas Prácticas Backend
+
+### Código y Estructura
+- Usar decoradores de NestJS (@Controller, @Service, @Injectable)
+- Implementar DTOs para validación de entrada y salida
+- Separar lógica de negocio en servicios, no en controladores
+- Usar inyección de dependencias correctamente
+- Implementar guards para rutas protegidas
+- Usar pipes para validación y transformación de datos
+
+### Base de Datos
+- Crear entidades con decoradores de TypeORM (@Entity, @Column, @PrimaryGeneratedColumn)
+- Definir relaciones correctamente (@OneToMany, @ManyToOne, @ManyToMany)
+- Usar migraciones para cambios de esquema
+- Implementar seeds para datos de prueba
+- Añadir índices para consultas frecuentes
+
+### Seguridad
+- Hash de contraseñas con bcrypt
+- Validación de inputs con class-validator
+- CORS configurado apropiadamente
+- Rate limiting en endpoints sensibles
+- Prevención de inyecciones SQL mediante ORM
+- JWT con expiración apropiada
+
+### API REST
+- Seguir convenciones REST (GET, POST, PUT, DELETE)
+- Usar códigos de estado HTTP apropiados
+- Implementar paginación en listados
+- Documentar endpoints con Swagger/OpenAPI
+- Manejar errores de forma consistente
+
+### Testing
+- Unit tests para servicios
+- Integration tests para controladores
+- E2E tests para flujos completos
+- Mock de dependencias externas
+- Cobertura de código mínima del 80%
+
+## Gestión de Tickets y Progreso
+
+### 🎫 Sistema de Tickets
+**IMPORTANTE**: El desarrollo debe basarse en los tickets definidos en `/ia-doc/tickets-backend.md`
+
+**Flujo de Trabajo con Tickets:**
+1. **Consultar tickets disponibles** en `/ia-doc/tickets-backend.md`
+2. **Seleccionar ticket** según prioridad y dependencias
+3. **Marcar tareas como completadas** usando checkboxes `- [x]`
+4. **Actualizar progreso** en tiempo real
+5. **Marcar ticket como finalizado** cuando todos los criterios de aceptación se cumplan
+
+**Formato de Seguimiento:**
+```markdown
+### Tareas
+- [x] Tarea completada
+- [ ] Tarea pendiente
+- [🔄] Tarea en progreso
+
+### Criterios de Aceptación
+- [x] Criterio cumplido
+- [ ] Criterio pendiente
+```
+
+**Marcado de Progreso:**
+- `- [x]` - Tarea completada
+- `- [ ]` - Tarea pendiente  
+- `- [🔄]` - Tarea en progreso
+- `- [❌]` - Tarea bloqueada o con problemas
+
+### 📊 Seguimiento de Progreso
+- **Actualizar tickets** después de cada sesión de trabajo
+- **Marcar criterios de aceptación** cuando se cumplan
+- **Documentar decisiones técnicas** en cada ticket
+- **Mantener historial** de cambios en tickets
+
+## Documentación y Logging
+
+### Logging de Conversaciones IA
+**IMPORTANTE**: Mantener un registro completo de todas las conversaciones con IA en `/ia-doc/prompts.md`
+
+Para cada interacción con IA, documentar:
+1. **Fecha y hora** de la conversación
+2. **Prompt del usuario** (texto completo)
+3. **Respuesta de la IA** (resumen de la solución propuesta)
+4. **Archivos modificados** o creados
+5. **Decisiones técnicas** tomadas
+6. **Próximos pasos** identificados
+
+Formato sugerido:
+```markdown
+## [YYYY-MM-DD HH:MM] - [Título de la tarea]
+
+**Prompt del usuario:**
+[Texto completo del prompt]
+
+**Respuesta de la IA:**
+[Resumen de la solución implementada]
+
+**Archivos modificados:**
+- archivo1.ts
+- archivo2.ts
+
+**Decisiones técnicas:**
+- [Decisión 1]
+- [Decisión 2]
+
+**Próximos pasos:**
+- [Tarea 1]
+- [Tarea 2]
+```
+
+### Documentación Técnica
+- Comentar código complejo
+- Mantener README actualizado
+- Documentar decisiones de arquitectura
+- Crear diagramas de flujo cuando sea necesario
+
+## Convenciones de Código
+
+### Naming
+- Variables y funciones: camelCase
+- Clases y interfaces: PascalCase
+- Constantes: UPPER_SNAKE_CASE
+- Archivos: kebab-case.ts
+- Módulos: PascalCase
+
+### Imports
+- Imports de librerías externas primero
+- Imports relativos después
+- Agrupar por tipo (entities, services, controllers)
+
+### Error Handling
+- Usar excepciones HTTP de NestJS (BadRequestException, NotFoundException)
+- Implementar filtros globales de excepciones
+- Logging de errores con contexto apropiado
+- Respuestas de error consistentes
+
+## Comandos Útiles
+```bash
+# Desarrollo
+npm run start:dev
+
+# Testing
+npm run test
+npm run test:e2e
+
+# Base de datos
+npm run migration:generate
+npm run migration:run
+npm run seed:run
+
+# Build
+npm run build
+```
+
+## Consideraciones Especiales
+- El proyecto será evaluado por habilidades con IA
+- Mantener documentación completa de decisiones técnicas
+- Priorizar código limpio y mantenible
+- Implementar funcionalidades paso a paso siguiendo las historias de usuario
+- Usar Docker para consistencia de entorno de desarrollo
